@@ -4,12 +4,12 @@ local_ip = [127,0,0,1];
 local_port = 8081;
 var server_ip = document.createElement("INPUT");
 server_ip.setAttribute("type", "text");
-//server_ip.value = "159.89.106.253";// server
-server_ip.value = document.URL.split("/")[2].split(":")[0];
+server_ip.value = "159.65.120.84";// server
+//server_ip.value = document.URL.split("/")[2].split(":")[0];
 var server_ip_info = document.createElement("h8");
 server_ip_info.innerHTML = "channel node IP: ";
 var server_port = document.createElement("INPUT");
-//server_port.value = "8080";// server
+server_port.value = "8080";// server
 if (document.URL[0] == 'f') {
     console.log("running stand-alone light node");
 } else {
