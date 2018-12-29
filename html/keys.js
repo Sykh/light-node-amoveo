@@ -7,6 +7,7 @@ function keys_function1() {
 	var new_pubkey_button = document.getElementById("new_key");
 	var update_balance_button = document.getElementById("update_balance");
 	var watch_only_pubkey = document.getElementById("watch_only_pubkey");
+	var spend_div = document.getElementById("spend_div");
 	
 	update_balance_button.onclick = update_balance;
 	file_selector.onchange = load_keys;
@@ -57,8 +58,9 @@ function keys_function1() {
 	}
     }
     function update_pubkey() {
-        pub_div.innerHTML = pubkey_64();
+        pub_div.innerHTML = pubkey_64();		
     }
+	
     function watch_only_func() {
 		var v = watch_only_pubkey.value;
 		keys = new_keys_watch(string_to_array(atob(v)));
@@ -114,6 +116,7 @@ function keys_function1() {
 	update_pubkey();
     }
     function load_keys() {
+		spend_div.style.display = "inline";
         var file = (file_selector.files)[0];
         var reader = new FileReader();
         reader.onload = function(e) {
