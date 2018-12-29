@@ -1,5 +1,6 @@
 //make ip and port as input things.
-if (document.URL[0] == 'f') {
+// run via file:// or github
+if (document.URL[0] == 'f' || document.URL.indexOf("github") > -1) {
     console.log("running stand-alone light node");
 } else {
     console.log("running light node served from a full node");
