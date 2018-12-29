@@ -1,22 +1,22 @@
+var keys = keys_object();
 
-function keys_function1() {
+function keys_object() {	
+	keys_object.new_keys_check = new_keys_check;
+	keys_object.update_balance = update_balance; 
+	keys_object.load_key = load_keys; 
+	keys_object.watch_only = watch_only_func; 
+	keys_object.check_balance = check_balance; 
+	keys_object.pub = pubkey_64;
+	keys_object.sign = sign_tx;
+	
 	var file_selector = document.getElementById("privkey_file");	
 	var bal_div = document.getElementById("balance");
 	var pub_div = document.getElementById("pubkey");
-	var watch_only_button = document.getElementById("watch_only_button");
-	var new_pubkey_button = document.getElementById("new_key");
-	var update_balance_button = document.getElementById("update_balance");
-	var watch_only_pubkey = document.getElementById("watch_only_pubkey");
 	var spend_div = document.getElementById("spend_div");
-	
-	update_balance_button.onclick = update_balance;
-	file_selector.onchange = load_keys;
-	watch_only_button.onclick = watch_only_func; 
-	new_pubkey_button.onclick = new_keys_check;
 
-	
+	var save_name = "Amoveo private key";
     var ec = new elliptic.ec('secp256k1');
-    var keys = new_keys();
+    //var keys = new_keys();
 
     //update_pubkey();
     function input_maker(val) {
@@ -69,30 +69,16 @@ function keys_function1() {
     }
     function new_keys_check() {
         //alert("this will delete your old keys. If you havemoney secured by this key, and you haven't saved your key, then this money will be destroyed.");
-        var warning = document.createElement("h3");
-        warning.innerHTML = "This will delete your old keys from the browser. Save your keys before doing this.";
-        var button = button_maker2("cancel ", cancel);
-        var button2 = button_maker2("continue", doit);
-	var entropy_txt = document.createElement("h3");
-	entropy_txt.innerHTML = "put random text here to make keys from";
-	var entropy = document.createElement("input");
-	entropy.type = "text";
-        append_children(pub_div, [warning, button, br(), button2, entropy_txt, entropy]);
-	// add interface for optional entropy 
-        function cancel() {
-            pub_div.innerHTML = "";
-        }
-        function doit() {
-            pub_div.innerHTML = "";
-	    var x = entropy.value;
-	    if (x == '') {//If you don't provide entropy, then it uses a built in random number generator.
-		keys = new_keys();
-		set_balance(0);
-	    } else {
-		keys = new_keys_entropy(x);
-	    }
-            update_pubkey();
-        }
+       if (confirm("This will delete your old keys from the browser. Save your keys before doing this.")) {
+		   pub_div.innerHTML = "";
+	    
+			keys = new_keys();			
+			update_pubkey();
+			update_balance(true);
+			save_keys();
+	   }
+	   else {
+	   }        
     }
     function check_balance(Callback) {
         var trie_key = pubkey_64();
@@ -101,26 +87,32 @@ function keys_function1() {
 	    Callback(x[1]);
         });
     }
-    function update_balance() {
+    function update_balance(new_account = false) {
         var trie_key = pubkey_64();
         var top_hash = hash(headers_object.serialize(headers_object.top()));
-        merkle.request_proof("accounts", trie_key, function(x) {
-            set_balance(x[1] / token_units());
-        });
-    }
+		if (!new_account) {
+				merkle.request_proof("accounts", trie_key, function(x) {				
+				set_balance(x[1] / token_units());
+				spend_div.style.display = "inline";
+			});
+		}
+		else {
+			bal_div.innerHTML = "New Accounts got no balance.";		
+		}
+	}
+		
     function set_balance(n) {
         bal_div.innerHTML = (n.toString()+" VEO");
     }
     function save_keys() {
-        download(keys.getPrivate("hex"), save_name.value, "text/plain");
-	update_pubkey();
+        download(keys.getPrivate("hex"), save_name, "text/plain");
     }
-    function load_keys() {
-		spend_div.style.display = "inline";
+	
+    function load_keys() {		
         var file = (file_selector.files)[0];
         var reader = new FileReader();
         reader.onload = function(e) {
-	    set_balance(0);
+	    //set_balance(0);
             keys = ec.keyFromPrivate(reader.result, "hex");
             update_pubkey();
             update_balance();
@@ -135,4 +127,3 @@ function keys_function1() {
     }
     return {make: new_keys, pub: pubkey_64, sign: sign_tx, ec: (function() { return ec; }), encrypt: encrypt, decrypt: decrypt, check_balance: check_balance};
 }
-var keys = keys_function1();

@@ -1,5 +1,8 @@
-function headers_main() {
-	document.getElementById("fetch_headers").onclick = more_headers;
+var headers_object = headers_function();
+
+function headers_function() {
+	
+	headers_function.more_headers = more_headers;
 	var wallet_div = document.getElementById("wallet_div")
 	
     var mode = "production";
@@ -298,7 +301,7 @@ function headers_main() {
 	return ewah;
     }
     function absorb_headers(h) {
-	console.log(JSON.stringify(h[1]));
+		console.log(JSON.stringify(h[1]));
         var get_more = false;
         for (var i = 1; i < h.length; i++ ) {
             var bl = check_pow(h[i]);
@@ -329,10 +332,9 @@ function headers_main() {
                 console.log(JSON.stringify(h[i])); }
         }
         if (get_more) { more_headers(); }
-    }
-    function more_headers() {
 		wallet_div.style.display = "inline";
-		
+    }
+    function more_headers() {		
         var n;
         if ( top_header == 0 ) {
             n = 0;
@@ -391,4 +393,3 @@ function headers_main() {
     }
     return {sci2int: sci2int, serialize: serialize_header, top: (function() { return top_header; }), db: headers_db, read_ewah: read_ewah};
 }
-var headers_object = headers_main();

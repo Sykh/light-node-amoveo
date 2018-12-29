@@ -1,23 +1,27 @@
-spend_1();
-function spend_1() {
-	var spend_amount = document.getElementById("spend_amount");
-	var spend_address = document.getElementById("spend_pubkey");
-	var raw_button = document.getElementById("spend_raw");
-	var spend_button = document.getElementById("spend_send");
-	var calculate_max_send_button = document.getElementById("spend_max");
+spend_object();
+
+function spend_object() {
+	spend_object.signedTX = signedTX;
+	spend_object.rawTX = rawTX;
+	spend_object.max_amount = calculate_max_send_button;
+	
 	var error_msg = document.getElementById("spend_text");
 	var raw_tx = document.getElementById("spend_text");
-	spend_button.onclick = function(){
+	var spend_address = document.getElementById("spend_address");
+	var spend_amount = document.getElementById("spend_amount");
+	var mode;
+	function signedTX() {
 		mode = "sign";
 		spend_tokens();
     };
-    raw_button.onclick = function(){
+	
+	function rawTX() {
 		mode = "raw";
 		spend_tokens();
     };
 	
-	calculate_max_send_button.onclick = function() {
-		keys.check_balance(function(Amount) {
+	function calculate_max_send_button() {
+		keys_object.check_balance(function(Amount) {
 			var to0 = spend_address.value;
 			var to = parse_address(to0);
 			if (to == 0) {
@@ -37,23 +41,24 @@ function spend_1() {
     function spend_tokens() {
         //spend_address = document.getElementById("spend_address");
         var to0 = spend_address.value.trim();
-	var to = parse_address(to0);
+		var to = parse_address(to0);
         var amount = Math.floor(parseFloat(spend_amount.value, 10) * token_units());
 
-	if (to == 0) {
-	    error_msg.innerHTML = "Badly formatted address";
-	} else {
-	    error_msg.innerHTML = "";
-        //spend_amount = document.getElementById("spend_amount");
-            var from = keys.pub();
-	    fee_checker(to, function (Fee) {
-		fee = Fee;
-		variable_public_get(["create_account_tx", amount, Fee, from, to], spend_tokens2);
-	    }, function (Fee) {
-		fee = Fee;
-		variable_public_get(["spend_tx", amount, Fee, from, to], spend_tokens2);
-	    });
-	}
+		if (to == 0) {
+			error_msg.innerHTML = "Badly formatted address";
+		} 
+		else {
+			error_msg.innerHTML = "";
+			//spend_amount = document.getElementById("spend_amount");
+			var from = keys_object.pub();
+			fee_checker(to, function (Fee) {
+			fee = Fee;
+			variable_public_get(["create_account_tx", amount, Fee, from, to], spend_tokens2);
+			}, function (Fee) {
+			fee = Fee;
+			variable_public_get(["spend_tx", amount, Fee, from, to], spend_tokens2);
+			});
+		}
     }
     function fee_checker(address, Callback1, Callback2) {
 	variable_public_get(["account", address],
@@ -93,11 +98,11 @@ function spend_1() {
         } else {
             console.log(JSON.stringify(tx));
 	    if (mode == "sign") {
-		var stx = keys.sign(tx);
+		var stx = keys_object.sign(tx);
 		console.log(JSON.stringify(stx));
 		console.log("pubkey is ");
 		console.log(to);
-		console.log(keys.pub());
+		console.log(keys_object.pub());
 		variable_public_get(["txs", [-6, stx]], function(x) {
 		    console.log(x);
 		    var msg = ((amount/token_units()).toString()).concat(" VEO successfully sent. txid =  ").concat(x);
