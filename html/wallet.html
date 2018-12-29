@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head><title>AMOVEO Light Wallet</title>    
-	<script type="text/javascript" src="BigInteger.js" ></script>
-	<script type="text/javascript" src="sjcl.js" ></script>
-	<script type="text/javascript" src="sha256.js" ></script>
-	<script type="text/javascript" src="elliptic.min.js" ></script>
-	<script type="text/javascript" src="crypto.js" ></script>
-	<script type="text/javascript" src="format.js" ></script>
-	<script type="text/javascript" src="rpc.js" ></script>
-	<script type="text/javascript" src="files.js" ></script>
-	<script type="text/javascript" src="codecBytes.js" ></script>
-	<script type="text/javascript" src="merkle_proofs.js" ></script>
-	<script type="text/javascript" src="encryption_library.js" ></script>
-	<script type="text/javascript" src="signing.js" ></script>
-	<script type="text/javascript" src="combine_cancel_assets.js" ></script>	
-	<script type="text/javascript" src="server.js" ></script>	
-	<script type="text/javascript" src="chalang.js" ></script>
-	<script type="text/javascript" src="lightning.js" ></script>
-	<script type="text/javascript" src="encryption.js" ></script>
+	<script src="BigInteger.js" ></script>
+	<script src="sjcl.js" ></script>
+	<script src="sha256.js" ></script>
+	<script src="elliptic.min.js" ></script>
+	<script src="crypto.js" ></script>
+	<script src="format.js" ></script>
+	<script src="rpc.js" ></script>
+	<script src="files.js" ></script>
+	<script src="codecBytes.js" ></script>
+	<script src="merkle_proofs.js" ></script>
+	<script src="encryption_library.js" ></script>
+	<script src="signing.js" ></script>
+	<script src="combine_cancel_assets.js" ></script>	
+	<script src="server.js" ></script>	
+	<script src="chalang.js" ></script>
+	<script src="lightning.js" ></script>
+	<script src="encryption.js" ></script>
+	
+	
+	
   </head>
   <body>  
     <div id="websites">
@@ -39,8 +42,8 @@
 	<div id="wallet_div" style="display:none">
 	<h3>Wallet</h3>	
 		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="keys_object.load_key();"> or <input id="new_pubkey_button" type="button" onClick="keys_object.new_keys_check();" value="Generate new key">		
-		<p>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
-		<p>Balance: <js id="balance"><font color="red">-</font></js></p>
+		<p><b>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
+		<p><b>Balance:</b> <js id="balance"><font color="red">-</font></js></p>
 		<p><input id="update_balance" type="button" onClick="keys_object.update_balance();" value="Update Balance"></p>
 	</div>
 	
@@ -55,21 +58,23 @@
 
 	<div id="pushtx_div" style="display:none">
 	<hr3>Push signed TX</hr>
-	<input id="signed_tx" size="200"><input type="button" onClick="
+	<input id="signed_tx" size="200"><input type="button" onClick="">
 	</div>
 	
 	<hr>
   </body>
-  	<script type="text/javascript" src="headers.js" ></script>  
-	<script type="text/javascript" src="keys.js" ></script>	
-	<script type="text/javascript" src="spend_tx.js" ></script>
+  	<script src="headers.js"></script>  
+	<script src="keys.js"></script>	
+	<script src="spend_tx.js"></script>
 	<!-- Todo !-->
-	<xscript type="text/javascript" src="sign_tx.js" ></script>	
-	<xscript type="text/javascript" src="market.js" ></script>	
-	<xscript type="text/javascript" src="spk.js" ></script>
-	<xscript type="text/javascript" src="bets.js" ></script>	
-	<xscript type="text/javascript" src="encryption_interface.js" ></script>
-	<xscript type="text/javascript" src="oracles.js" ></script>
-	<xscript type="text/javascript" src="governance.js" ></script>
-	<xscript type="text/javascript" src="channels.js" ></script>
+	
+	<script xsrc="sign_tx.js" ></script>	
+	<script xsrc="market.js" ></script>	
+	<script xsrc="spk.js" ></script>
+	<script xsrc="bets.js" ></script>	
+	<script xsrc="encryption_interface.js" ></script>
+	<script xsrc="oracles.js" ></script>
+	<script xsrc="governance.js" ></script>
+	<script xsrc="channels.js" ></script>
+	
 </html>
