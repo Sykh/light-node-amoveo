@@ -1,4 +1,6 @@
 function headers_main() {
+	document.getElementById("fetch_headers").onclick = more_headers;
+	
     var mode = "production";
     //var mode = "test";
     var forks;
@@ -7,34 +9,30 @@ function headers_main() {
     var headers_db = {};//store valid headers by hash
     var INITIAL_DIFFICULTY;
     var headers_batch = 5000;
-    if (mode == "test") {
-	INITIAL_DIFFICULTY = 2500;
-	retarget_frequency = 12;
-	forks = {two: 0, four: retarget_frequency, seven:40};
-	top_header = 0;
-    } else {
-	INITIAL_DIFFICULTY = 8844;
-	retarget_frequency = 2000;
-	forks = {two: 9000, four: 26900, seven:28135};
-	//top_header = 0;
-	//top_header = ["header",28001,"f3PfnlxML/UPF9T5ixy1+Q539NyOVfFG07x4pf3zw6Q=","4A7MYFe5u7OG22QGUvIFguzZWYWndkZARGdImbhbEjM=","huIlyyrALPoafVluEL/ZYtZ8BXHUJEPxcXCLid5CSnU=",141617794,14053,3,"AAAAAAAAAAAA6ZeG6UQ+dPE+8iEbHoY92if6pIMAAlI=",193346798808507350000,5982];
-	//write_header(top_header, 1865656952131054);
-	top_header = ["header", 38671, "CoyxdfjlUzd/cujJRS1iTksmE5l7C3lsyn+2FY0kxmU=", "+CwT4ZGvYE10i5Tdocj1j+ojSNowEDp+Jq+uw3zdO20=", "MrN5jt9v0X91Kix3HInDP25dNrTXOt+ux3d2yY64QMk=", 212163079, 13698, 3, "AAAAAAAAAAAAhv86dgAAAAAV79tiAAAAAAAWxwAAZjc=", 402432639143042350000, 5982];
-	write_header(top_header, 2177732187806707);
-	//to find the ewah headers_object.read_ewah(hash(headers_object.serialize(headers_object.top())));
-    }
     
-    //var top_header = 0;//stores the valid header with the most accumulated work.
-    //var top_hash = hash(serialize_header(top_header));
-    //headers_db[top_hash] = top_header;
+	if (mode == "test") {
+		INITIAL_DIFFICULTY = 2500;
+		retarget_frequency = 12;
+		forks = {two: 0, four: retarget_frequency, seven:40};
+		top_header = 0;
+    } 
+	else {
+		INITIAL_DIFFICULTY = 8844;
+		retarget_frequency = 2000;
+		forks = {two: 9000, four: 26900, seven:28135};
+		top_header = ["header", 38671, "CoyxdfjlUzd/cujJRS1iTksmE5l7C3lsyn+2FY0kxmU=", "+CwT4ZGvYE10i5Tdocj1j+ojSNowEDp+Jq+uw3zdO20=", "MrN5jt9v0X91Kix3HInDP25dNrTXOt+ux3d2yY64QMk=", 212163079, 13698, 3, "AAAAAAAAAAAAhv86dgAAAAAV79tiAAAAAAAWxwAAZjc=", 402432639143042350000, 5982];
+		write_header(top_header, 2177732187806707);
+		//to find the ewah headers_object.read_ewah(hash(headers_object.serialize(headers_object.top())));
+	}
     
     var top_diff = 0;//accumulative difficulty of top
-    var button = button_maker2("more headers ", more_headers);
-    document.body.appendChild(button);
-    wallet_text = document.createElement("p");
-    wallet_text.innerHTML = JSON.stringify([["height", 0], ["total work", 0]]);
-    document.body.appendChild(wallet_text);
-    more_headers();
+    //var button = button_maker2("more headers ", more_headers);
+	
+    //document.body.appendChild(button);
+    //wallet_text = document.createElement("p");
+    //wallet_text.innerHTML = JSON.stringify([["height", 0], ["total work", 0]]);
+    //document.body.appendChild(wallet_text);
+    //more_headers();
     function write_header(header, ewah) {
 	//console.log("write header");
         var acc_difficulty = header[9];
@@ -42,21 +40,24 @@ function headers_main() {
             top_diff = acc_difficulty;
             top_header = header;
 	    //console.log("wallet text update");
-            wallet_text.innerHTML = JSON.stringify([["height", header[1]], ["total work", (Math.floor(header[9]/100000000))]]);
+            document.getElementById("headers_text").innerHTML = JSON.stringify([["height", header[1]], ["total work", (Math.floor(header[9]/100000000))]]);
         }
         h = hash(serialize_header(header));
         headers_db[h] = [header, ewah];
     }
     function read_ewah(hash) {
-	if (headers_db[hash]) {
-	    return headers_db[hash][1];
-	} else { return  undefined; }
-    }
+		if (headers_db[hash]) {
+			return headers_db[hash][1];
+		} 
+		return  undefined; 
+	}
     function read_header(hash) {
-	if (headers_db[hash]) {
-	    return headers_db[hash][0];
-	} else { return  undefined; }
+		if (headers_db[hash]) {
+			return headers_db[hash][0];
+		} 
+		return  undefined;
     }
+	
     function list_to_uint8(l) {
         var array = new Uint8Array(l.length);
         for (var i=0; i<l.length; i++) {

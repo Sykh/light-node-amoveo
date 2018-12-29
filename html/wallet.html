@@ -1,41 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head><title>AMOVEO Light Wallet</title>    
+	<script type="text/javascript" src="BigInteger.js" ></script>
+	<script type="text/javascript" src="sjcl.js" ></script>
+	<script type="text/javascript" src="sha256.js" ></script>
+	<script type="text/javascript" src="elliptic.min.js" ></script>
+	<script type="text/javascript" src="crypto.js" ></script>
+	<script type="text/javascript" src="format.js" ></script>
+	<script type="text/javascript" src="rpc.js" ></script>
+	<script type="text/javascript" src="files.js" ></script>
+	<script type="text/javascript" src="codecBytes.js" ></script>
+	<script type="text/javascript" src="merkle_proofs.js" ></script>
+	<script type="text/javascript" src="encryption_library.js" ></script>
+	<script type="text/javascript" src="signing.js" ></script>
+	<script type="text/javascript" src="combine_cancel_assets.js" ></script>	
+	<script type="text/javascript" src="server.js" ></script>	
+	<script type="text/javascript" src="chalang.js" ></script>
+	<script type="text/javascript" src="lightning.js" ></script>
+	<script type="text/javascript" src="encryption.js" ></script>
   </head>
-  <body>
-    <div id="translations"></div>
+  <body>  
+    <div id="translations">
+		<a href="https://github.com/zack-bitcoin/amoveo" target="_BLANK">github</a> |
+		<a href="https://github.com/zack-bitcoin/amoveo/docs" target="_BLANK">docs</a> |
+		<a href="https://www.reddit.com/r/Amoveo/" target="_BLANK">reddit</a> |	
+		<a href="https://www.amoveo.io" target="_BLANK">AMOVEO.io</a> |	
+		<a href="https://www.veoscan.io" target="_BLANK">veoscan.io</a> |	
+		<a href="https://explorer.veopool.pw" target="_BLANK">explorer.veopool.pw</a>
+	</div>
+	<h3>Remote Node to use</h3>
+	<div id="headers">
+		IP: <input name="node_ip" value="159.65.120.84">
+		Port: <input name="node_port" value="8080"	>
+		<input type="submit" value="Fetch Headers" id="fetch_headers" onClick="defined in headers.js">
+	</div>
+	<p id="headers_text"><font color="red">Fetch headers first!</font></p>	
+	<h3>Wallet</h3>
+	<div id="key_management">
+		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="defined in keys.js"></p>
+		<p>Watch Only Pubkey: <input id="watch_only"> <input type="submit" value="Watch" onClick="defined in keys.js"></p>
+		<p><input id="new_key" type="submit" onClick="defined in keys.js" value="Generate new key"></p>
+	</div>
+	<p>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
+	<p>Balance: <js id="balance"><font color="red">-</font></js></p>
+	<p><input id="update_balance" type="submit" onClick="defined in keys.js" value="Update Balance"></p>
+	
+	<h3>Send VEO</h3>
+	<div id="spend">
+		Amount <input type="button" value="max" id="spend_max"> <input id="spend_amount" size="5"> to pubkey: <input id="spend_pubkey" size="88">
+		<input type="submit" id ="spend_send" value="Send" onClick="defined in spend_tx.js">
+		<input type="submit" id ="spend_raw" value="Print unsigned TX" onClick="defined in spend_tx.js">
+		<div id="spend_text"></div>
+	</div>
+	
+	<hr>
   </body>
-  <script type="text/javascript" src="title.js" ></script>
-  <script type="text/javascript" src="BigInteger.js" ></script>
-  <p> <font color="blue"> Units have been switched back to VEO from  mVEO. 1 VEO = 1000 mVEO </font> </p>
-  <script type="text/javascript" src="sjcl.js" ></script>
-  <script type="text/javascript" src="sha256.js" ></script>
-  <script type="text/javascript" src="elliptic.min.js" ></script>
-  <script type="text/javascript" src="format.js" ></script>
-  <script type="text/javascript" src="rpc.js" ></script>
-  <script type="text/javascript" src="files.js" ></script>
-  <script type="text/javascript" src="codecBytes.js" ></script>
-  <script type="text/javascript" src="sha256.js" ></script>
-  <script type="text/javascript" src="crypto.js" ></script>
-  <script type="text/javascript" src="merkle_proofs.js" ></script>
-  <script type="text/javascript" src="encryption_library.js" ></script>
-  <script type="text/javascript" src="server.js" ></script>
-  <script type="text/javascript" src="headers.js" ></script>
-  <script type="text/javascript" src="keys.js" ></script>
-  <script type="text/javascript" src="signing.js" ></script>
-  <p> <font color="blue"> Units have been switched back to VEO from  mVEO. 1 VEO = 1000 mVEO </font> </p>
-  <script type="text/javascript" src="spend_tx.js" ></script>
-  <script type="text/javascript" src="sign_tx.js" ></script>
-  <script type="text/javascript" src="combine_cancel_assets.js" ></script>
-  <script type="text/javascript" src="market.js" ></script>
-  <script type="text/javascript" src="chalang.js" ></script>
-  <script type="text/javascript" src="spk.js" ></script>
-  <script type="text/javascript" src="bets.js" ></script>
-  <script type="text/javascript" src="lightning.js" ></script>
-  <script type="text/javascript" src="encryption.js" ></script>
-  <script type="text/javascript" src="encryption_interface.js" ></script>
-  <script type="text/javascript" src="oracles.js" ></script>
-  <script type="text/javascript" src="governance.js" ></script>
-  <p> <font color="blue"> Units have been switched back to VEO from  mVEO. 1 VEO = 1000 mVEO </font> </p>
-  <script type="text/javascript" src="channels.js" ></script>
+  	<script type="text/javascript" src="headers.js" ></script>  
+	<script type="text/javascript" src="keys.js" ></script>	
+	<script type="text/javascript" src="spend_tx.js" ></script>
+	<!-- Todo !-->
+	<script type="text/javascript" src="sign_tx.js" ></script>	
+	<script type="text/javascript" src="market.js" ></script>	
+	<script type="text/javascript" src="spk.js" ></script>
+	<script type="text/javascript" src="bets.js" ></script>	
+	<script type="text/javascript" src="encryption_interface.js" ></script>
+	<script type="text/javascript" src="oracles.js" ></script>
+	<script type="text/javascript" src="governance.js" ></script>
+	<script type="text/javascript" src="channels.js" ></script>
 </html>

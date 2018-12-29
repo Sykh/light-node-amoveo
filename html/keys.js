@@ -1,31 +1,20 @@
 
 function keys_function1() {
+	var file_selector = document.getElementById("privkey_file");	
+	var bal_div = document.getElementById("balance");
+	var pub_div = document.getElementById("pubkey");
+	var watch_only_button = document.getElementById("watch_only");
+	var new_pubkey_button = document.getElementById("new_key");
+	var update_balance_button = document.getElementById("update_balance");
+	
+	update_balance_button.onclick = update_balance;
+	file_selector.onchange = load_keys;
+	watch_only_button.onclick = watch_only_func; 
+	new_pubkey_button.onclick = new_keys_check;
+
+	
     var ec = new elliptic.ec('secp256k1');
     var keys = new_keys();
-    var account_title = document.createElement("h3");
-    account_title.innerHTML = "account ";
-    var div = document.createElement("div");
-    var save_name = document.createElement("input");
-    save_name.type = "text";
-    save_name.value = "Amoveo private key";
-    var save_button = button_maker2("Generate new account. Saves the private key to a file.", save_keys);
-    var file_selector = document.createElement("input");
-    file_selector.type = "file";
-    file_selector.onchange = load_keys;
-    var load_text = document.createTextNode("get key from file");
-    var watch_only_instructions = document.createTextNode("put your pubkey here to make a watch-only wallet that is unable to spend money.");
-    var watch_only_pubkey = document.createElement("input");
-    watch_only_pubkey.type = "text";
-    var watch_only_button = button_maker2("load pubkey", watch_only_func); 
-    var pub_div = document.createElement("div");
-    var new_pubkey_button = button_maker2("generate new keys", new_keys_check);
-    var new_pubkey_div = document.createElement("div");
-    var balance_button = button_maker2("check balance ", update_balance);
-    var bal_div = document.createElement("div");
-    document.body.appendChild(account_title);
-    document.body.appendChild(div);
-
-    append_children(div, [load_text, file_selector, br(), pub_div, br(), save_name, save_button, br(), watch_only_instructions, watch_only_pubkey, watch_only_button, br(), new_pubkey_button, new_pubkey_div, br(), bal_div, balance_button]);
 
     //update_pubkey();
     function input_maker(val) {
@@ -67,7 +56,7 @@ function keys_function1() {
 	}
     }
     function update_pubkey() {
-        pub_div.innerHTML = ("your pubkey ").concat(pubkey_64());
+        pub_div.innerHTML = pubkey_64();
     }
     function watch_only_func() {
 	var v = watch_only_pubkey.value;
@@ -84,13 +73,13 @@ function keys_function1() {
 	entropy_txt.innerHTML = "put random text here to make keys from";
 	var entropy = document.createElement("input");
 	entropy.type = "text";
-        append_children(new_pubkey_div, [warning, button, br(), button2, entropy_txt, entropy]);
+        append_children(pub_div, [warning, button, br(), button2, entropy_txt, entropy]);
 	// add interface for optional entropy 
         function cancel() {
-            new_pubkey_div.innerHTML = "";
+            pub_div.innerHTML = "";
         }
         function doit() {
-            new_pubkey_div.innerHTML = "";
+            pub_div.innerHTML = "";
 	    var x = entropy.value;
 	    if (x == '') {//If you don't provide entropy, then it uses a built in random number generator.
 		keys = new_keys();
@@ -116,7 +105,7 @@ function keys_function1() {
         });
     }
     function set_balance(n) {
-        bal_div.innerHTML = ("your balance ").concat((n).toString()) + " VEO";
+        bal_div.innerHTML = (n.toString()+" VEO");
     }
     function save_keys() {
         download(keys.getPrivate("hex"), save_name.value, "text/plain");

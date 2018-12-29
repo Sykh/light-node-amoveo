@@ -1,57 +1,38 @@
 spend_1();
 function spend_1() {
-    var div = document.createElement("div");
-    document.body.appendChild(div);
-    div.appendChild(document.createElement("br"));
-    var spend_amount = document.createElement("INPUT");
-    spend_amount.setAttribute("type", "text");
-    //spend_amount.id = "spend_amount";
-    var spend_amount_info = document.createElement("h8");
-    spend_amount_info.innerHTML = "amount to send: ";
+	var spend_amount = document.getElementById("spend_amount");
+	var spend_address = document.getElementById("spend_pubkey");
+	var raw_button = document.getElementById("spend_raw");
+	var spend_button = document.getElementById("spend_send");
+	var calculate_max_send_button = document.getElementById("spend_max");
+	var error_msg = document.getElementById("spend_text");
+	var raw_tx = document.getElementById("spend_text");
+	spend_button.onclick = function(){
+		mode = "sign";
+		spend_tokens();
+    };
+    raw_button.onclick = function(){
+		mode = "raw";
+		spend_tokens();
+    };
+	
+	calculate_max_send_button.onclick = function() {
+		keys.check_balance(function(Amount) {
+			var to0 = spend_address.value;
+			var to = parse_address(to0);
+			if (to == 0) {
+				error_msg.innerHTML = "please input the recipient's address";
+			} 
+			else {
+				error_msg.innerHTML = "";
+			}
+			var CB2 = function(fee) {
+				var A2 = Amount - fee - 1;
+				spend_amount.value = (A2 / token_units()).toString();
+			};
+			fee_checker(to, CB2, CB2);
+	})};
 
-    var spend_address = document.createElement("INPUT");
-    spend_address.setAttribute("type", "text");
-    //spend_address.id = "spend_address";
-    var input_info = document.createElement("h8");
-    input_info.innerHTML = "to pubkey: ";
-    var raw_tx = document.createElement("h8");
-    var mode;
-    spend_button = button_maker2("send", function(){
-	mode = "sign";
-	spend_tokens();
-    });
-    raw_button = button_maker2("print unsigned transaction to screen", function(){
-	mode = "raw";
-	spend_tokens();
-    });
-    var error_msg = document.createElement("div");
-    var calculate_max_send_button = button_maker2("calculate max send amount", function() {
-	keys.check_balance(function(Amount) {
-            var to0 = spend_address.value;
-	    var to = parse_address(to0);
-	    if (to == 0) {
-		error_msg.innerHTML = "please input the recipient's address";
-	    } else {
-		error_msg.innerHTML = "";
-	    }
-	    var CB2 = function(fee) {
-		var A2 = Amount - fee - 1;
-		spend_amount.value = (A2 / token_units()).toString();
-	    };
-	    fee_checker(to, CB2, CB2);
-	});
-    });
-    div.appendChild(calculate_max_send_button);
-    div.appendChild(document.createElement("br"));
-    div.appendChild(spend_amount_info);
-    div.appendChild(spend_amount);
-    div.appendChild(input_info);
-    div.appendChild(spend_address);
-    div.appendChild(spend_button);
-    div.appendChild(raw_button);
-    div.appendChild(error_msg);
-    div.appendChild(document.createElement("br"));
-    div.appendChild(raw_tx);
     var fee;
     function spend_tokens() {
         //spend_address = document.getElementById("spend_address");
