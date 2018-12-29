@@ -32,24 +32,24 @@
 	<div id="headers">
 		IP: <input name="node_ip" value="159.65.120.84">
 		Port: <input name="node_port" value="8080"	>
-		<input type="submit" value="Fetch Headers" id="fetch_headers" onClick="defined in headers.js">
+		<input type="button" value="Fetch Headers" id="fetch_headers" onClick="defined in headers.js">
 	</div>
 	<p id="headers_text"><font color="red">Fetch headers first!</font></p>	
 	<h3>Wallet</h3>
 	<div id="key_management">
 		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="defined in keys.js"></p>
-		<p>Watch Only Pubkey: <input id="watch_only"> <input type="submit" value="Watch" onClick="defined in keys.js"></p>
-		<p><input id="new_key" type="submit" onClick="defined in keys.js" value="Generate new key"></p>
+		<p>Watch Only Pubkey: <input id="watch_only"> <input type="button" value="Watch" onClick="defined in keys.js"></p>
+		<p><input id="new_key" type="button" onClick="defined in keys.js" value="Generate new key"></p>
 	</div>
 	<p>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
 	<p>Balance: <js id="balance"><font color="red">-</font></js></p>
-	<p><input id="update_balance" type="submit" onClick="defined in keys.js" value="Update Balance"></p>
+	<p><input id="update_balance" type="button" onClick="defined in keys.js" value="Update Balance"></p>
 	
 	<h3>Send VEO</h3>
 	<div id="spend">
 		Amount <input type="button" value="max" id="spend_max"> <input id="spend_amount" size="5"> to pubkey: <input id="spend_pubkey" size="88">
-		<input type="submit" id ="spend_send" value="Send" onClick="defined in spend_tx.js">
-		<input type="submit" id ="spend_raw" value="Print unsigned TX" onClick="defined in spend_tx.js">
+		<input type="button" id ="spend_send" value="Send" onClick="defined in spend_tx.js">
+		<input type="button" id ="spend_raw" value="Print unsigned TX" onClick="defined in spend_tx.js">
 		<div id="spend_text"></div>
 	</div>
 	
