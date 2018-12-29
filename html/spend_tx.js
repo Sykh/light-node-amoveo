@@ -10,6 +10,7 @@ function spend_object() {
 	var spend_address = document.getElementById("spend_address");
 	var spend_amount = document.getElementById("spend_amount");
 	var mode;
+	
 	function signedTX() {
 		mode = "sign";
 		spend_tokens();

@@ -1,13 +1,6 @@
-var keys = keys_object();
+var keys_object = keys_function();
 
-function keys_object() {	
-	keys_object.new_keys_check = new_keys_check;
-	keys_object.update_balance = update_balance; 
-	keys_object.load_key = load_keys; 
-	keys_object.watch_only = watch_only_func; 
-	keys_object.check_balance = check_balance; 
-	keys_object.pub = pubkey_64;
-	keys_object.sign = sign_tx;
+function keys_function() {		
 	
 	var file_selector = document.getElementById("privkey_file");	
 	var bal_div = document.getElementById("balance");
@@ -16,7 +9,7 @@ function keys_object() {
 
 	var save_name = "Amoveo private key";
     var ec = new elliptic.ec('secp256k1');
-    //var keys = new_keys();
+    var keys = new_keys();
 
     //update_pubkey();
     function input_maker(val) {
@@ -82,6 +75,7 @@ function keys_object() {
     }
     function check_balance(Callback) {
         var trie_key = pubkey_64();
+		console.log("check_balance "+trie_key);
         var top_hash = hash(headers_object.serialize(headers_object.top()));
         merkle.request_proof("accounts", trie_key, function(x) {
 	    Callback(x[1]);
@@ -125,5 +119,8 @@ function keys_object() {
     function decrypt(val) {
 	return encryption_object.get(val, keys);
     }
-    return {make: new_keys, pub: pubkey_64, sign: sign_tx, ec: (function() { return ec; }), encrypt: encrypt, decrypt: decrypt, check_balance: check_balance};
+	
+    return {make: new_keys, pub: pubkey_64, sign: sign_tx, ec: (function() { return ec; }), 
+			encrypt: encrypt, decrypt: decrypt, check_balance: check_balance, new_keys_check: new_keys_check, 
+			update_balance: update_balance, load_keys: load_keys, watch_only_func: watch_only_func};
 }

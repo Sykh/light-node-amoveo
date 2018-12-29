@@ -35,13 +35,13 @@
 	<div id="headers">
 		IP: <input name="node_ip" value="159.65.120.84">
 		Port: <input name="node_port" value="8080"	>
-		<input type="button" value="Fetch Headers" id="fetch_headers" onClick="headers_function.more_headers();">
+		<input type="button" value="Fetch Headers" id="fetch_headers" onClick="headers_object.more_headers();">
 	</div>
 	<p id="headers_text"><font color="red">Fetch headers first!</font></p>	
 	
 	<div id="wallet_div" style="display:none">
 	<h3>Wallet</h3>	
-		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="keys_object.load_key();"> or <input id="new_pubkey_button" type="button" onClick="keys_object.new_keys_check();" value="Generate new key">		
+		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="keys_object.load_keys();"> or <input id="new_pubkey_button" type="button" onClick="keys_object.new_keys_check();" value="Generate new key">		
 		<p><b>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
 		<p><b>Balance:</b> <js id="balance"><font color="red">-</font></js></p>
 		<p><input id="update_balance" type="button" onClick="keys_object.update_balance();" value="Update Balance"></p>

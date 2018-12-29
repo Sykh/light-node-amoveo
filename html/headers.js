@@ -1,8 +1,6 @@
 var headers_object = headers_function();
 
-function headers_function() {
-	
-	headers_function.more_headers = more_headers;
+function headers_function() {	
 	var wallet_div = document.getElementById("wallet_div")
 	
     var mode = "production";
@@ -391,5 +389,5 @@ function headers_function() {
         console.log(int2sci(2000));//should be 2804
         console.log(sci2int(int2sci(2000)));// should be 2000
     }
-    return {sci2int: sci2int, serialize: serialize_header, top: (function() { return top_header; }), db: headers_db, read_ewah: read_ewah};
+    return {sci2int: sci2int, serialize: serialize_header, top: (function() { return top_header; }), db: headers_db, read_ewah: read_ewah, more_headers: more_headers};
 }
