@@ -20,12 +20,12 @@
 	<script type="text/javascript" src="encryption.js" ></script>
   </head>
   <body>  
-    <div id="translations">
-		<a href="https://github.com/zack-bitcoin/amoveo" target="_BLANK">github</a> |
+    <div id="websites">
+		<b>Webpages</b> <a href="https://github.com/zack-bitcoin/amoveo" target="_BLANK">github</a> |
 		<a href="https://github.com/zack-bitcoin/amoveo/docs" target="_BLANK">docs</a> |
 		<a href="https://www.reddit.com/r/Amoveo/" target="_BLANK">reddit</a> |	
-		<a href="https://www.amoveo.io" target="_BLANK">AMOVEO.io</a> |	
-		<a href="https://www.veoscan.io" target="_BLANK">veoscan.io</a> |	
+		<a href="https://www.amoveo.io" target="_BLANK">AMOVEO.io</a><br>
+		<b>Explorer</b> <a href="https://www.veoscan.io" target="_BLANK">veoscan.io</a> |	
 		<a href="https://explorer.veopool.pw" target="_BLANK">explorer.veopool.pw</a>
 	</div>
 	<h3>Remote Node to use</h3>
@@ -35,18 +35,19 @@
 		<input type="button" value="Fetch Headers" id="fetch_headers" onClick="defined in headers.js">
 	</div>
 	<p id="headers_text"><font color="red">Fetch headers first!</font></p>	
-	<h3>Wallet</h3>
-	<div id="key_management">
-		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="defined in keys.js"></p>
-		<p>Watch Only Pubkey: <input id="watch_only"> <input type="button" value="Watch" onClick="defined in keys.js"></p>
-		<p><input id="new_key" type="button" onClick="defined in keys.js" value="Generate new key"></p>
-	</div>
-	<p>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
-	<p>Balance: <js id="balance"><font color="red">-</font></js></p>
-	<p><input id="update_balance" type="button" onClick="defined in keys.js" value="Update Balance"></p>
 	
-	<h3>Send VEO</h3>
-	<div id="spend">
+	<div id="wallet_div" style="display:none">
+	<h3>Wallet</h3>	
+		<p>Load Pubkey from file <input type="file" id="privkey_file" onChange="defined in keys.js"> or <input id="new_key" type="button" onClick="defined in keys.js" value="Generate new key">
+		<p>Watch Only Pubkey: <input id="watch_only_pubkey"> <input type="button" value="Watch" id="watch_only_button" onClick="defined in keys.js"></p>
+		<p>Pubkey:</b> <js id="pubkey">Load privkey or create new address</js></p>
+		<p>Balance: <js id="balance"><font color="red">-</font></js></p>
+		<p><input id="update_balance" type="button" onClick="defined in keys.js" value="Update Balance"></p>
+	</div>
+	
+	
+	<div id="spend_div" style="display:none">
+	<h3>Send VEO</h3>	
 		Amount <input type="button" value="max" id="spend_max"> <input id="spend_amount" size="5"> to pubkey: <input id="spend_pubkey" size="88">
 		<input type="button" id ="spend_send" value="Send" onClick="defined in spend_tx.js">
 		<input type="button" id ="spend_raw" value="Print unsigned TX" onClick="defined in spend_tx.js">

@@ -3,9 +3,10 @@ function keys_function1() {
 	var file_selector = document.getElementById("privkey_file");	
 	var bal_div = document.getElementById("balance");
 	var pub_div = document.getElementById("pubkey");
-	var watch_only_button = document.getElementById("watch_only");
+	var watch_only_button = document.getElementById("watch_only_button");
 	var new_pubkey_button = document.getElementById("new_key");
 	var update_balance_button = document.getElementById("update_balance");
+	var watch_only_pubkey = document.getElementById("watch_only_pubkey");
 	
 	update_balance_button.onclick = update_balance;
 	file_selector.onchange = load_keys;
@@ -59,9 +60,10 @@ function keys_function1() {
         pub_div.innerHTML = pubkey_64();
     }
     function watch_only_func() {
-	var v = watch_only_pubkey.value;
-	keys = new_keys_watch(string_to_array(atob(v)));
-	update_pubkey();
+		var v = watch_only_pubkey.value;
+		keys = new_keys_watch(string_to_array(atob(v)));
+		update_pubkey();
+		update_balance();
     }
     function new_keys_check() {
         //alert("this will delete your old keys. If you havemoney secured by this key, and you haven't saved your key, then this money will be destroyed.");

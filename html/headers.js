@@ -1,5 +1,6 @@
 function headers_main() {
 	document.getElementById("fetch_headers").onclick = more_headers;
+	var wallet_div = document.getElementById("wallet_div")
 	
     var mode = "production";
     //var mode = "test";
@@ -330,6 +331,8 @@ function headers_main() {
         if (get_more) { more_headers(); }
     }
     function more_headers() {
+		wallet_div.style.display = "inline";
+		
         var n;
         if ( top_header == 0 ) {
             n = 0;
