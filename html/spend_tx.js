@@ -1,10 +1,6 @@
-spend_object();
+var spend_object = spend_function();
 
-function spend_object() {
-	spend_object.signedTX = signedTX;
-	spend_object.rawTX = rawTX;
-	spend_object.max_amount = calculate_max_send_button;
-	
+function spend_function() {	
 	var error_msg = document.getElementById("spend_text");
 	var raw_tx = document.getElementById("spend_text");
 	var spend_address = document.getElementById("spend_address");
@@ -115,4 +111,6 @@ function spend_object() {
         }
         spend_amount.value = "";
     }
+
+	return{signedTX: signedTX, rawTX: rawTX, max_amount: calculate_max_send_button};
 }
